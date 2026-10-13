@@ -4,6 +4,7 @@ export const positions = ['Dirección', 'Producción', 'Fotografía', 'Maquillaj
 
 export const navLinks = [
   { label: 'Inicio', href: '#inicio' },
+  { label: 'Sobre mí', href: '#sobre-mi' },
   { label: 'Fotografía', href: '#fotografia' },
   { label: 'Cinematografía', href: '#cine' },
   { label: 'Contacto', href: '#contacto' },

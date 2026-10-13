@@ -25,6 +25,13 @@ collections:
             name: images
             widget: list
             field: { label: Imagen, name: image, widget: image }
+      - name: about
+        label: Sobre mí
+        file: src/data/about.json
+        format: json
+        fields:
+          - { label: Foto, name: photo, widget: image }
+          - { label: Bio, name: bio, widget: text }
 
   - name: events
     label: Eventos
