@@ -26,3 +26,7 @@ Se editan desde `/admin`. Las subidas van a `public/uploads/`.
 Cada merge a `main` publica el sitio con `.github/workflows/deploy.yml` en
 `https://<usuario>.github.io/CinemaPortfolio/`. El panel `/admin` sólo inicia sesión
 en Cloudflare Pages (necesita las funciones de `functions/`).
+
+## Créditos de logos
+Logos de herramientas en `src/assets/logos/`: Simple Icons 13.21.0 (CC0), CapCut de Hugeicons (MIT)
+y Reaper de FontAudio por @fefanto (CC BY 4.0). Las marcas pertenecen a sus dueños.
