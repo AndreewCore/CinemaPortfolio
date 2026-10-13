@@ -11,8 +11,8 @@ pnpm build
 
 ## Contenido
 - Eventos de fotografía: `src/content/events/*.md`
-- Cinematografía: `src/content/videos/*.md`
-- Colores y posiciones: `src/data/site.ts` y `src/styles/global.css`
+- Filmmaking: `src/content/videos/*.md`
+- Colores, roles y áreas: `src/data/site.ts` y `src/styles/global.css`
 
 Se editan desde `/admin`. Las subidas van a `public/uploads/`.
 

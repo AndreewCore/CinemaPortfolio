@@ -1,5 +1,5 @@
 ---
-import { positions } from '../data/site';
+import { areas } from '../data/site';
 import collage from '../data/collage.json';
 import { asset } from '../data/asset';
 
@@ -35,8 +35,8 @@ const degree = [
     </h1>
 
     <ul class="mt-8 flex max-w-2xl flex-wrap gap-2">
-      {positions.map((p, i) => (
-        <li class="flex items-center gap-2 rounded-full bg-negro px-4 py-1.5 text-xs font-bold uppercase tracking-[0.2em] text-crema sm:text-sm">
+      {areas.map((p, i) => (
+        <li class="flex items-center gap-2 rounded-full bg-negro px-3 py-1 text-[10px] font-bold uppercase tracking-[0.2em] text-crema sm:px-4 sm:py-1.5 sm:text-sm">
           <span class:list={['h-2 w-2 rounded-full', dots[i % dots.length]]}></span>{p}
         </li>
       ))}

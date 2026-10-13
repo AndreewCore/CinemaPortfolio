@@ -1,5 +1,5 @@
 ---
-import { positions, contact } from '../data/site';
+import { areas, contact } from '../data/site';
 import PaintBlob from './PaintBlob.astro';
 
 const field =
@@ -44,7 +44,7 @@ const label = 'text-xs font-bold uppercase tracking-[0.2em] text-marron';
       <fieldset class="sm:col-span-2">
         <legend class={label}>Proyecto</legend>
         <div class="mt-3 flex flex-wrap gap-2">
-          {positions.map((p) => (
+          {areas.map((p) => (
             <label class="cursor-pointer">
               <input type="checkbox" name="project" value={p} class="peer sr-only" />
               <span class="block rounded-full border-2 border-negro/20 px-4 py-1.5 text-sm font-medium transition-colors hover:border-negro peer-checked:border-negro peer-checked:bg-negro peer-checked:text-crema peer-focus-visible:ring-2 peer-focus-visible:ring-turquesa">
