@@ -1,0 +1,86 @@
+---
+import { positions, contact } from '../data/site';
+import PaintBlob from './PaintBlob.astro';
+
+const field =
+  'w-full rounded-none border-b-2 border-negro/20 bg-transparent py-3 text-negro outline-none transition-colors placeholder:text-negro/35 focus:border-verde';
+const label = 'text-xs font-bold uppercase tracking-[0.2em] text-marron';
+---
+
+<section id="contacto" class="relative overflow-hidden bg-verde py-24 text-crema md:py-32">
+  <PaintBlob color="#6B4226" rotate={30} class="pointer-events-none absolute -left-24 -top-24 h-80 w-80 opacity-60" />
+  <PaintBlob color="#3FA7A3" rotate={200} class="pointer-events-none absolute -bottom-20 right-[40%] h-56 w-56 opacity-40" />
+
+  <div class="relative mx-auto grid max-w-7xl items-center gap-12 px-4 sm:px-6 lg:grid-cols-[1fr_1.1fr]">
+    <div>
+      <h2 class="font-display text-[clamp(5rem,14vw,10rem)] uppercase leading-[0.8] tracking-wide">
+        Hable<span class="text-turquesa">mos</span>
+      </h2>
+      <ul class="mt-10 space-y-3 text-lg">
+        <li>
+          <a href={`mailto:${contact.email}`} class="group inline-flex items-center gap-3">
+            <span class="h-[3px] w-8 bg-turquesa transition-all group-hover:w-14"></span>{contact.email}
+          </a>
+        </li>
+        <li>
+          <a href={contact.instagramUrl} target="_blank" rel="noopener" class="group inline-flex items-center gap-3">
+            <span class="h-[3px] w-8 bg-marron transition-all group-hover:w-14"></span>{contact.instagram}
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Maqueta: al conectar, poner aquí el endpoint de Formspree o Web3Forms. -->
+    <form id="contact-form" action="#" method="POST" class="grid gap-7 bg-crema p-6 text-negro shadow-[12px_12px_0_0_var(--color-negro)] sm:grid-cols-2 sm:p-10">
+      <label class="grid gap-1">
+        <span class={label}>Nombre</span>
+        <input class={field} type="text" name="name" required autocomplete="name" />
+      </label>
+      <label class="grid gap-1">
+        <span class={label}>Correo</span>
+        <input class={field} type="email" name="email" required autocomplete="email" />
+      </label>
+
+      <fieldset class="sm:col-span-2">
+        <legend class={label}>Proyecto</legend>
+        <div class="mt-3 flex flex-wrap gap-2">
+          {positions.map((p) => (
+            <label class="cursor-pointer">
+              <input type="checkbox" name="project" value={p} class="peer sr-only" />
+              <span class="block rounded-full border-2 border-negro/20 px-4 py-1.5 text-sm font-medium transition-colors hover:border-negro peer-checked:border-negro peer-checked:bg-negro peer-checked:text-crema peer-focus-visible:ring-2 peer-focus-visible:ring-turquesa">
+                {p}
+              </span>
+            </label>
+          ))}
+        </div>
+      </fieldset>
+
+      <label class="grid gap-1 sm:col-span-2">
+        <span class={label}>Mensaje</span>
+        <textarea class={`${field} resize-none`} name="message" rows="4" required></textarea>
+      </label>
+
+      <button
+        type="submit"
+        class="group flex items-center justify-between gap-6 bg-negro px-6 py-4 font-display text-2xl uppercase tracking-wider text-crema transition-colors hover:bg-turquesa hover:text-negro sm:col-span-2"
+      >
+        <span class="label">Enviar</span>
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="transition-transform group-hover:translate-x-1">
+          <path d="M5 12h14M13 6l6 6-6 6" />
+        </svg>
+      </button>
+    </form>
+  </div>
+</section>
+
+<script>
+  const form = document.getElementById('contact-form') as HTMLFormElement;
+  // Mientras no haya servicio de envío, se evita recargar la página.
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const btn = form.querySelector<HTMLButtonElement>('button[type=submit]')!;
+    btn.querySelector('.label')!.textContent = 'Enviado';
+    btn.disabled = true;
+    form.reset();
+  });
+</script>
