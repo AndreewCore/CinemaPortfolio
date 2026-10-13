@@ -1,15 +1,19 @@
 ---
 import { getCollection } from 'astro:content';
 import { asset } from '../data/asset';
+import { getLang, localized, useT } from '../i18n/ui';
+
+const lang = getLang(Astro.currentLocale);
+const [titleA, titleB] = useT(lang)('makeup.title');
 
 const looks = (await getCollection('makeup')).sort((a, b) => a.data.order - b.data.order);
-const photos = looks.flatMap((l) => l.data.photos.map((src) => ({ src: asset(src), title: l.data.title })));
+const photos = looks.flatMap((l) => l.data.photos.map((src) => ({ src: asset(src), title: localized(l.data, 'title', lang) })));
 ---
 
 <section id="maquillaje" class="bg-marron py-24 text-crema md:py-32">
   <div class="mx-auto max-w-7xl px-4 sm:px-6">
     <h2 class="font-display text-[clamp(4.5rem,13vw,10rem)] uppercase leading-[0.8] tracking-wide">
-      Maqui<span class="text-crema-oscuro/60">llaje</span>
+      {titleA}<span class="text-crema-oscuro/60">{titleB}</span>
     </h2>
     <div class="mt-4 flex h-[6px] w-40" aria-hidden="true">
       <span class="flex-1 bg-verde"></span><span class="flex-1 bg-crema"></span><span class="flex-1 bg-turquesa"></span>

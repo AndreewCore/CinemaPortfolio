@@ -32,6 +32,7 @@ collections:
         fields:
           - { label: Foto, name: photo, widget: image }
           - { label: Bio, name: bio, widget: text }
+          - { label: Bio en inglés, name: bio_en, widget: text, required: false }
 
   - name: events
     label: Eventos
@@ -42,6 +43,7 @@ collections:
     sortable_fields: [date, title]
     fields:
       - { label: Título, name: title, widget: string }
+      - { label: Título en inglés, name: title_en, widget: string, required: false }
       - { label: Fecha, name: date, widget: datetime, time_format: false, date_format: "DD/MM/YYYY", format: "YYYY-MM-DD" }
       - label: Fotos
         name: photos
@@ -57,6 +59,7 @@ collections:
     sortable_fields: [position, order, title]
     fields:
       - { label: Título, name: title, widget: string }
+      - { label: Título en inglés, name: title_en, widget: string, required: false }
       - label: Posición
         name: position
         widget: select
@@ -75,6 +78,7 @@ collections:
     sortable_fields: [order, title]
     fields:
       - { label: Título, name: title, widget: string }
+      - { label: Título en inglés, name: title_en, widget: string, required: false }
       - label: Fotos
         name: photos
         widget: list
@@ -90,6 +94,7 @@ collections:
     sortable_fields: [type, order, title]
     fields:
       - { label: Título, name: title, widget: string }
+      - { label: Título en inglés, name: title_en, widget: string, required: false }
       # Mantener igual a `designTypes` en src/data/site.ts.
       - { label: Tipo, name: type, widget: select, options: [Carrusel, Reel, Pieza] }
       - label: Imágenes (carrusel, pieza o portada del reel)

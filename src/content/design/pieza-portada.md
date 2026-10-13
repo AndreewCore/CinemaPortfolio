@@ -1,5 +1,6 @@
 ---
 title: "Portada"
+title_en: "Cover"
 type: Pieza
 order: 2
 images:

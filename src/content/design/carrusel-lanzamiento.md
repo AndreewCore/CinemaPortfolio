@@ -1,5 +1,6 @@
 ---
 title: "Lanzamiento de marca"
+title_en: "Brand launch"
 type: Carrusel
 order: 1
 images:
