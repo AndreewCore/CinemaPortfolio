@@ -80,3 +80,23 @@ collections:
         widget: list
         field: { label: Foto, name: photo, widget: image }
       - { label: Orden, name: order, widget: number, value_type: int, default: 0 }
+
+  - name: design
+    label: Diseño Gráfico
+    label_singular: Pieza
+    folder: src/content/design
+    create: true
+    slug: "{{slug}}"
+    sortable_fields: [type, order, title]
+    fields:
+      - { label: Título, name: title, widget: string }
+      # Mantener igual a `designTypes` en src/data/site.ts.
+      - { label: Tipo, name: type, widget: select, options: [Carrusel, Reel, Pieza] }
+      - label: Imágenes (carrusel, pieza o portada del reel)
+        name: images
+        widget: list
+        required: false
+        field: { label: Imagen, name: image, widget: image }
+      - { label: Video del reel (mp4), name: video, widget: file, required: false }
+      - { label: YouTube Shorts (enlace o ID), name: youtube, widget: string, required: false }
+      - { label: Orden, name: order, widget: number, value_type: int, default: 0 }

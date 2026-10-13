@@ -4,12 +4,16 @@ export const filmmakingRoles = ['Dirección', 'Producción', 'Postproducción', 
 // Áreas de trabajo: chips del hero y opciones del formulario de contacto.
 export const areas = [...filmmakingRoles, 'Fotografía', 'Maquillaje', 'Diseño Gráfico'];
 
+// Tipos de pieza de Diseño Gráfico; mantener igual a las opciones de public/admin/config.yml.
+export const designTypes = ['Carrusel', 'Reel', 'Pieza'] as const;
+
 export const navLinks = [
   { label: 'Inicio', href: '#inicio' },
   { label: 'Sobre mí', href: '#sobre-mi' },
   { label: 'Fotografía', href: '#fotografia' },
   { label: 'Filmmaking', href: '#filmmaking' },
   { label: 'Maquillaje', href: '#maquillaje' },
+  { label: 'Diseño', href: '#diseno' },
   { label: 'Contacto', href: '#contacto' },
 ];
 
