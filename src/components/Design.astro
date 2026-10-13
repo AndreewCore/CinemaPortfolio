@@ -15,7 +15,8 @@ const arrow =
   'absolute top-1/2 z-10 grid h-9 w-9 -translate-y-1/2 place-items-center rounded-full bg-crema/90 text-negro shadow transition hover:bg-turquesa disabled:pointer-events-none disabled:opacity-0';
 ---
 
-<section id="diseno" class="relative overflow-hidden py-24 md:py-32">
+{pieces.length > 0 && (
+<section id="diseno" class="relative overflow-hidden bg-crema-oscuro py-24 md:py-32">
   <div class="mx-auto max-w-7xl px-4 sm:px-6">
     <div class="flex flex-wrap items-end justify-between gap-6">
       <h2 class="font-display text-[clamp(3.5rem,12vw,9rem)] uppercase leading-[0.8] tracking-wide">
@@ -127,63 +128,67 @@ const arrow =
     </div>
   </div>
 </section>
+)}
 
 <script>
-  const section = document.getElementById('diseno')!;
-  const tabs = section.querySelectorAll<HTMLButtonElement>('.tab');
-  const panels = section.querySelectorAll<HTMLElement>('.panel');
+  // La sección no se renderiza si no hay piezas.
+  const section = document.getElementById('diseno');
+  if (section) {
+    const tabs = section.querySelectorAll<HTMLButtonElement>('.tab');
+    const panels = section.querySelectorAll<HTMLElement>('.panel');
 
-  tabs.forEach((t) =>
-    t.addEventListener('click', () => {
-      tabs.forEach((o) => o.setAttribute('aria-selected', String(o === t)));
-      panels.forEach((p) => p.classList.toggle('hidden', p.dataset.panel !== t.dataset.tab));
-    }),
-  );
-
-  section.querySelectorAll<HTMLElement>('.carousel').forEach((c) => {
-    const track = c.querySelector<HTMLElement>('.track')!;
-    const count = c.querySelector<HTMLElement>('.count')!;
-    const dots = [...c.querySelectorAll<HTMLElement>('.dots span')];
-    const prev = c.querySelector<HTMLButtonElement>('.prev')!;
-    const next = c.querySelector<HTMLButtonElement>('.next')!;
-    const total = dots.length;
-
-    /** Sincroniza contador, puntos y flechas con la diapositiva visible. */
-    function sync() {
-      const i = Math.round(track.scrollLeft / track.clientWidth);
-      count.textContent = `${i + 1}/${total}`;
-      dots.forEach((d, k) => {
-        d.classList.toggle('bg-negro', k === i);
-        d.classList.toggle('bg-negro/20', k !== i);
-      });
-      prev.disabled = i === 0;
-      next.disabled = i >= total - 1;
-    }
-
-    track.addEventListener('scroll', sync, { passive: true });
-    prev.addEventListener('click', () => track.scrollBy({ left: -track.clientWidth, behavior: 'smooth' }));
-    next.addEventListener('click', () => track.scrollBy({ left: track.clientWidth, behavior: 'smooth' }));
-  });
-
-  // Los reels se reproducen solos (sin sonido) sólo mientras están en pantalla.
-  const observer = new IntersectionObserver(
-    (entries) =>
-      entries.forEach((e) => {
-        const v = e.target as HTMLVideoElement;
-        if (e.isIntersecting) v.play().catch(() => {});
-        else v.pause();
+    tabs.forEach((t) =>
+      t.addEventListener('click', () => {
+        tabs.forEach((o) => o.setAttribute('aria-selected', String(o === t)));
+        panels.forEach((p) => p.classList.toggle('hidden', p.dataset.panel !== t.dataset.tab));
       }),
-    { threshold: 0.5 },
-  );
-  section.querySelectorAll<HTMLVideoElement>('.reel').forEach((v) => observer.observe(v));
+    );
 
-  section.querySelectorAll<HTMLButtonElement>('.mute').forEach((b) =>
-    b.addEventListener('click', () => {
-      const v = b.parentElement!.querySelector<HTMLVideoElement>('video')!;
-      v.muted = !v.muted;
-      b.querySelector('.off')!.classList.toggle('hidden', !v.muted);
-      b.querySelector('.on')!.classList.toggle('hidden', v.muted);
-      b.setAttribute('aria-label', v.muted ? 'Activar sonido' : 'Silenciar');
-    }),
-  );
+    section.querySelectorAll<HTMLElement>('.carousel').forEach((c) => {
+      const track = c.querySelector<HTMLElement>('.track')!;
+      const count = c.querySelector<HTMLElement>('.count')!;
+      const dots = [...c.querySelectorAll<HTMLElement>('.dots span')];
+      const prev = c.querySelector<HTMLButtonElement>('.prev')!;
+      const next = c.querySelector<HTMLButtonElement>('.next')!;
+      const total = dots.length;
+
+      /** Sincroniza contador, puntos y flechas con la diapositiva visible. */
+      function sync() {
+        const i = Math.round(track.scrollLeft / track.clientWidth);
+        count.textContent = `${i + 1}/${total}`;
+        dots.forEach((d, k) => {
+          d.classList.toggle('bg-negro', k === i);
+          d.classList.toggle('bg-negro/20', k !== i);
+        });
+        prev.disabled = i === 0;
+        next.disabled = i >= total - 1;
+      }
+
+      track.addEventListener('scroll', sync, { passive: true });
+      prev.addEventListener('click', () => track.scrollBy({ left: -track.clientWidth, behavior: 'smooth' }));
+      next.addEventListener('click', () => track.scrollBy({ left: track.clientWidth, behavior: 'smooth' }));
+    });
+
+    // Los reels se reproducen solos (sin sonido) sólo mientras están en pantalla.
+    const observer = new IntersectionObserver(
+      (entries) =>
+        entries.forEach((e) => {
+          const v = e.target as HTMLVideoElement;
+          if (e.isIntersecting) v.play().catch(() => {});
+          else v.pause();
+        }),
+      { threshold: 0.5 },
+    );
+    section.querySelectorAll<HTMLVideoElement>('.reel').forEach((v) => observer.observe(v));
+
+    section.querySelectorAll<HTMLButtonElement>('.mute').forEach((b) =>
+      b.addEventListener('click', () => {
+        const v = b.parentElement!.querySelector<HTMLVideoElement>('video')!;
+        v.muted = !v.muted;
+        b.querySelector('.off')!.classList.toggle('hidden', !v.muted);
+        b.querySelector('.on')!.classList.toggle('hidden', v.muted);
+        b.setAttribute('aria-label', v.muted ? 'Activar sonido' : 'Silenciar');
+      }),
+    );
+  }
 </script>

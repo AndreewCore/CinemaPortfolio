@@ -10,9 +10,9 @@ export const designTypes = ['Carrusel', 'Reel', 'Pieza'] as const;
 export const navLinks = [
   { label: 'Inicio', href: '#inicio' },
   { label: 'Sobre mí', href: '#sobre-mi' },
-  { label: 'Fotografía', href: '#fotografia' },
   { label: 'Filmmaking', href: '#filmmaking' },
   { label: 'Maquillaje', href: '#maquillaje' },
+  { label: 'Fotografía', href: '#fotografia' },
   { label: 'Diseño', href: '#diseno' },
   { label: 'Contacto', href: '#contacto' },
 ];
