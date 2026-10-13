@@ -1,5 +1,6 @@
 ---
 title: "Festival de Cine"
+title_en: "Film Festival"
 date: 2026-03-22
 photos:
   - https://picsum.photos/seed/fest1/1200/900

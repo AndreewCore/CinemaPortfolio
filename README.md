@@ -1,4 +1,4 @@
-# CinemaPortfolio — E Jordan
+# CinemaPortfolio — Edith Jordan
 
 Astro + Tailwind + Decap CMS.
 
@@ -11,8 +11,11 @@ pnpm build
 
 ## Contenido
 - Eventos de fotografía: `src/content/events/*.md`
-- Cinematografía: `src/content/videos/*.md`
-- Colores y posiciones: `src/data/site.ts` y `src/styles/global.css`
+- Filmmaking: `src/content/videos/*.md`
+- Colores, roles y áreas: `src/data/site.ts` y `src/styles/global.css`
+
+Español en `/` e inglés en `/en/`. Textos fijos en `src/i18n/ui.ts`; el contenido
+usa los campos opcionales "en inglés" del panel (`title_en`, `bio_en`) y, si están vacíos, el español.
 
 Se editan desde `/admin`. Las subidas van a `public/uploads/`.
 
@@ -26,3 +29,7 @@ Se editan desde `/admin`. Las subidas van a `public/uploads/`.
 Cada merge a `main` publica el sitio con `.github/workflows/deploy.yml` en
 `https://<usuario>.github.io/CinemaPortfolio/`. El panel `/admin` sólo inicia sesión
 en Cloudflare Pages (necesita las funciones de `functions/`).
+
+## Créditos de logos
+Logos de herramientas en `src/assets/logos/`: Simple Icons 13.21.0 (CC0), CapCut de Hugeicons (MIT)
+y Reaper de FontAudio por @fefanto (CC BY 4.0). Las marcas pertenecen a sus dueños.

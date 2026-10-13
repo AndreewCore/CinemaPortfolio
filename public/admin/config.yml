@@ -25,6 +25,14 @@ collections:
             name: images
             widget: list
             field: { label: Imagen, name: image, widget: image }
+      - name: about
+        label: Sobre mí
+        file: src/data/about.json
+        format: json
+        fields:
+          - { label: Foto, name: photo, widget: image }
+          - { label: Bio, name: bio, widget: text }
+          - { label: Bio en inglés, name: bio_en, widget: text, required: false }
 
   - name: events
     label: Eventos
@@ -35,6 +43,7 @@ collections:
     sortable_fields: [date, title]
     fields:
       - { label: Título, name: title, widget: string }
+      - { label: Título en inglés, name: title_en, widget: string, required: false }
       - { label: Fecha, name: date, widget: datetime, time_format: false, date_format: "DD/MM/YYYY", format: "YYYY-MM-DD" }
       - label: Fotos
         name: photos
@@ -42,7 +51,7 @@ collections:
         field: { label: Foto, name: photo, widget: image }
 
   - name: videos
-    label: Cinematografía
+    label: Filmmaking
     label_singular: Trabajo
     folder: src/content/videos
     create: true
@@ -50,11 +59,49 @@ collections:
     sortable_fields: [position, order, title]
     fields:
       - { label: Título, name: title, widget: string }
+      - { label: Título en inglés, name: title_en, widget: string, required: false }
       - label: Posición
         name: position
         widget: select
-        # Mantener igual a `positions` en src/data/site.ts.
-        options: [Dirección, Producción, Fotografía, Maquillaje, Edición]
+        # Mantener igual a `filmmakingRoles` en src/data/site.ts.
+        options: [Dirección, Producción, Postproducción, Dirección de Fotografía]
       - { label: YouTube (enlace o ID), name: youtube, widget: string, required: false }
       - { label: Imagen, name: image, widget: image, required: false }
+      - { label: Orden, name: order, widget: number, value_type: int, default: 0 }
+
+  - name: makeup
+    label: Maquillaje
+    label_singular: Look
+    folder: src/content/makeup
+    create: true
+    slug: "{{slug}}"
+    sortable_fields: [order, title]
+    fields:
+      - { label: Título, name: title, widget: string }
+      - { label: Título en inglés, name: title_en, widget: string, required: false }
+      - label: Fotos
+        name: photos
+        widget: list
+        field: { label: Foto, name: photo, widget: image }
+      - { label: Orden, name: order, widget: number, value_type: int, default: 0 }
+
+  - name: design
+    label: Diseño Gráfico
+    label_singular: Pieza
+    folder: src/content/design
+    create: true
+    slug: "{{slug}}"
+    sortable_fields: [type, order, title]
+    fields:
+      - { label: Título, name: title, widget: string }
+      - { label: Título en inglés, name: title_en, widget: string, required: false }
+      # Mantener igual a `designTypes` en src/data/site.ts.
+      - { label: Tipo, name: type, widget: select, options: [Carrusel, Reel, Pieza] }
+      - label: Imágenes (carrusel, pieza o portada del reel)
+        name: images
+        widget: list
+        required: false
+        field: { label: Imagen, name: image, widget: image }
+      - { label: Video del reel (mp4), name: video, widget: file, required: false }
+      - { label: YouTube Shorts (enlace o ID), name: youtube, widget: string, required: false }
       - { label: Orden, name: order, widget: number, value_type: int, default: 0 }

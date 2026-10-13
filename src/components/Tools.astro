@@ -1,0 +1,17 @@
+---
+import { tools } from '../data/tools';
+import { inlineLogo } from '../data/logo';
+---
+
+<section id="herramientas" class="bg-negro text-crema">
+  <ul class="mx-auto flex max-w-7xl flex-wrap justify-center gap-x-6 gap-y-6 px-4 py-8 sm:px-6 lg:gap-x-8">
+    {tools.map((t) => (
+      <li class="group flex w-16 flex-col items-center gap-2 text-center sm:w-20">
+        <span class="h-9 w-9 text-crema/70 transition-colors group-hover:text-turquesa sm:h-10 sm:w-10" set:html={inlineLogo(t.logo)} />
+        <span class="text-[10px] font-bold uppercase leading-tight tracking-[0.12em] text-crema/50 transition-colors group-hover:text-crema">
+          {t.name}
+        </span>
+      </li>
+    ))}
+  </ul>
+</section>

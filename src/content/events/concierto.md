@@ -1,5 +1,6 @@
 ---
 title: "Concierto Acústico"
+title_en: "Acoustic Concert"
 date: 2026-01-15
 photos:
   - https://picsum.photos/seed/conc1/1200/900

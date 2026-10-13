@@ -1,0 +1,15 @@
+<script>
+  // Cualquier botón .yt[data-id] se reemplaza por el reproductor al hacer click:
+  // cargar varios iframes de YouTube al inicio haría la página mucho más pesada.
+  document.addEventListener('click', (e) => {
+    const b = (e.target as HTMLElement).closest<HTMLButtonElement>('.yt[data-id]');
+    if (!b) return;
+    const iframe = document.createElement('iframe');
+    iframe.src = `https://www.youtube-nocookie.com/embed/${b.dataset.id}?autoplay=1`;
+    iframe.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
+    iframe.allowFullscreen = true;
+    iframe.className = 'absolute inset-0 h-full w-full';
+    iframe.title = b.getAttribute('aria-label') ?? 'YouTube';
+    b.replaceWith(iframe);
+  });
+</script>
