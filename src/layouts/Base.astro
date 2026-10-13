@@ -20,17 +20,10 @@ const lang = getLang(Astro.currentLocale);
     <!-- Antes de pintar: evita el destello de tema equivocado al cargar. -->
     <script is:inline>
       (() => {
-        const saved = () => {
-          try { return localStorage.getItem('theme'); } catch { return null; }
-        };
-        const media = matchMedia('(prefers-color-scheme: dark)');
-        const apply = () => {
-          const s = saved();
-          document.documentElement.dataset.theme = s === 'dark' || s === 'light' ? s : media.matches ? 'dark' : 'light';
-        };
-        apply();
-        // Sin elección guardada, sigue al sistema también si cambia con la página abierta.
-        media.addEventListener('change', apply);
+        let saved = null;
+        try { saved = localStorage.getItem('theme'); } catch {}
+        // Claro por defecto; oscuro solo si la persona lo eligió con el botón.
+        document.documentElement.dataset.theme = saved === 'dark' ? 'dark' : 'light';
       })();
     </script>
     {Object.keys(languages).map((l) => <link rel="alternate" hreflang={l} href={getRelativeLocaleUrl(l)} />)}

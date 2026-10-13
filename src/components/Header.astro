@@ -61,7 +61,7 @@ const t = useT(lang);
 </header>
 
 <script>
-  // Guardar la elección hace que deje de seguir al sistema en próximas visitas.
+  // Se guarda para que la elección se mantenga en próximas visitas.
   document.getElementById('theme-btn')!.addEventListener('click', () => {
     const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
     document.documentElement.dataset.theme = next;
