@@ -9,6 +9,7 @@ export const navLinks = [
   { label: 'Sobre mí', href: '#sobre-mi' },
   { label: 'Fotografía', href: '#fotografia' },
   { label: 'Filmmaking', href: '#filmmaking' },
+  { label: 'Maquillaje', href: '#maquillaje' },
   { label: 'Contacto', href: '#contacto' },
 ];
 

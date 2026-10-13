@@ -69,7 +69,7 @@ const pad = (n: number) => String(n).padStart(2, '0');
             aria-hidden={i !== 0 ? 'true' : undefined}
           >
             {e.data.photos.slice(0, 5).map((src, j) => (
-              <button class:list={['photo group relative overflow-hidden bg-crema-oscuro', spans[j]]} data-src={asset(src)} aria-label={`Ampliar ${e.data.title} ${j + 1}`}>
+              <button class:list={['photo group relative overflow-hidden bg-crema-oscuro', spans[j]]} data-lightbox={asset(src)} aria-label={`Ampliar ${e.data.title} ${j + 1}`}>
                 <img
                   src={asset(src)}
                   alt={`${e.data.title} ${j + 1}`}
@@ -85,9 +85,6 @@ const pad = (n: number) => String(n).padStart(2, '0');
     </div>
   </div>
 
-  <dialog id="lightbox" class="m-auto max-h-[92vh] max-w-[92vw] bg-transparent p-0 backdrop:bg-negro/90">
-    <img id="lightbox-img" src="" alt="" class="max-h-[92vh] max-w-[92vw] object-contain" />
-  </dialog>
 </section>
 
 <script>
@@ -101,6 +98,7 @@ const pad = (n: number) => String(n).padStart(2, '0');
   let elapsed = 0;
   let last = performance.now();
   let paused = false;
+  const lightbox = document.getElementById('lightbox') as HTMLDialogElement | null;
 
   /** Muestra el evento `i` (con vuelta circular) y reinicia el contador. */
   function show(i: number) {
@@ -120,7 +118,8 @@ const pad = (n: number) => String(n).padStart(2, '0');
 
   /** Avanza el tiempo y pinta la barra de progreso del evento activo. */
   function tick(now: number) {
-    if (!paused) elapsed += now - last;
+    // Con el visor abierto tampoco avanza: la foto ampliada no debe cambiar de evento.
+    if (!paused && !lightbox?.open) elapsed += now - last;
     last = now;
     if (elapsed >= INTERVAL) show(current + 1);
     items.forEach((b, k) => {
@@ -136,21 +135,8 @@ const pad = (n: number) => String(n).padStart(2, '0');
     document.getElementById('ev-next')?.addEventListener('click', () => show(current + 1));
     // Pausar al pasar el cursor da tiempo de ver las fotos sin que cambien.
     root.addEventListener('mouseenter', () => (paused = true));
-    root.addEventListener('mouseleave', () => (paused = lightbox.open));
+    root.addEventListener('mouseleave', () => (paused = false));
     requestAnimationFrame(tick);
   }
 
-  const lightbox = document.getElementById('lightbox') as HTMLDialogElement;
-  const lightboxImg = document.getElementById('lightbox-img') as HTMLImageElement;
-  document.querySelectorAll<HTMLButtonElement>('#events .photo').forEach((b) =>
-    b.addEventListener('click', () => {
-      lightboxImg.src = b.dataset.src ?? '';
-      lightboxImg.alt = b.getAttribute('aria-label') ?? '';
-      paused = true;
-      lightbox.showModal();
-    }),
-  );
-  // Cualquier click cierra: no hay controles dentro que proteger.
-  lightbox.addEventListener('click', () => lightbox.close());
-  lightbox.addEventListener('close', () => (paused = false));
 </script>

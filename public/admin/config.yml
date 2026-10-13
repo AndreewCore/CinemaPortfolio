@@ -65,3 +65,18 @@ collections:
       - { label: YouTube (enlace o ID), name: youtube, widget: string, required: false }
       - { label: Imagen, name: image, widget: image, required: false }
       - { label: Orden, name: order, widget: number, value_type: int, default: 0 }
+
+  - name: makeup
+    label: Maquillaje
+    label_singular: Look
+    folder: src/content/makeup
+    create: true
+    slug: "{{slug}}"
+    sortable_fields: [order, title]
+    fields:
+      - { label: Título, name: title, widget: string }
+      - label: Fotos
+        name: photos
+        widget: list
+        field: { label: Foto, name: photo, widget: image }
+      - { label: Orden, name: order, widget: number, value_type: int, default: 0 }
