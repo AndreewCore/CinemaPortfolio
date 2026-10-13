@@ -1,0 +1,19 @@
+---
+interface Props {
+  color: string;
+  /** Rota la mancha para que las tres no se vean idénticas. */
+  rotate?: number;
+  class?: string;
+}
+const { color, rotate = 0, class: className } = Astro.props;
+---
+
+<svg viewBox="0 0 200 200" class={className} fill={color} aria-hidden="true" style={`transform: rotate(${rotate}deg)`}>
+  <path
+    d="M96 30c10-14 30-12 34 4 3 12 14 14 24 8 16-9 30 6 22 20-6 10 0 18 10 22 16 6 14 28-2 32-11 3-13 13-6 22 10 13-4 30-19 24-11-4-19 2-20 13-2 17-24 20-32 6-6-10-16-11-24-4-12 11-31 1-27-15 3-11-4-18-15-18-17 0-22-21-8-30 9-6 9-15 1-22-12-11 0-30 16-25 11 3 19-3 20-14 2-17 22-21 31-8 4 6 10 8 14 3z"
+  />
+  <circle cx="180" cy="34" r="7" />
+  <circle cx="22" cy="168" r="5" />
+  <circle cx="168" cy="178" r="4" />
+  <circle cx="14" cy="40" r="3" />
+</svg>
