@@ -1,26 +1,22 @@
 ---
 import { getCollection } from 'astro:content';
-import { positions } from '../data/site';
+import { filmmakingRoles } from '../data/site';
+import { youtubeId } from '../data/youtube';
 import { asset } from '../data/asset';
 
 const videos = (await getCollection('videos')).sort((a, b) => a.data.order - b.data.order);
 
-/** Acepta un ID o cualquier URL de YouTube y devuelve solo el ID. */
-function youtubeId(value: string): string {
-  const m = value.match(/(?:youtu\.be\/|v=|embed\/|shorts\/)([\w-]{11})/);
-  return m ? m[1] : value.trim();
-}
 
 // Sólo se muestran pestañas de posiciones que tienen contenido.
-const tabs = positions.filter((p) => videos.some((v) => v.data.position === p));
+const tabs = filmmakingRoles.filter((p) => videos.some((v) => v.data.position === p));
 const firstOfTab = new Set(tabs.map((t) => videos.find((v) => v.data.position === t)?.id));
 ---
 
-<section id="cine" class="relative overflow-hidden bg-negro py-28 text-crema md:py-36">
+<section id="filmmaking" class="relative overflow-hidden bg-negro py-28 text-crema md:py-36">
   <div class="mx-auto max-w-7xl px-4 sm:px-6">
     <div class="flex flex-wrap items-end justify-between gap-6">
       <h2 class="font-display text-[clamp(3rem,15vw,11rem)] uppercase leading-[0.8] tracking-wide">
-        Cinemato<span class="text-turquesa">grafía</span>
+        Film<span class="text-turquesa">making</span>
       </h2>
       <div class="flex flex-wrap gap-2" role="tablist">
         {tabs.map((p, i) => (
@@ -76,8 +72,8 @@ const firstOfTab = new Set(tabs.map((t) => videos.find((v) => v.data.position ==
 </section>
 
 <script>
-  const tabs = document.querySelectorAll<HTMLButtonElement>('#cine .tab');
-  const cards = [...document.querySelectorAll<HTMLElement>('#cine .card')];
+  const tabs = document.querySelectorAll<HTMLButtonElement>('#filmmaking .tab');
+  const cards = [...document.querySelectorAll<HTMLElement>('#filmmaking .card')];
 
   tabs.forEach((t) =>
     t.addEventListener('click', () => {
@@ -88,20 +84,6 @@ const firstOfTab = new Set(tabs.map((t) => videos.find((v) => v.data.position ==
         // El primero de cada posición se muestra a ancho completo como destacado.
         c.classList.toggle('md:col-span-2', c === visible[0]);
       });
-    }),
-  );
-
-  // El iframe se crea al hacer click: cargar varios reproductores de YouTube
-  // al inicio haría la página mucho más pesada.
-  document.querySelectorAll<HTMLButtonElement>('#cine .yt').forEach((b) =>
-    b.addEventListener('click', () => {
-      const iframe = document.createElement('iframe');
-      iframe.src = `https://www.youtube-nocookie.com/embed/${b.dataset.id}?autoplay=1`;
-      iframe.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
-      iframe.allowFullscreen = true;
-      iframe.className = 'absolute inset-0 h-full w-full';
-      iframe.title = b.getAttribute('aria-label') ?? 'YouTube';
-      b.replaceWith(iframe);
     }),
   );
 </script>

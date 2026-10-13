@@ -1,6 +1,7 @@
 import { defineCollection } from 'astro:content';
 import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
+import { designTypes } from './data/site';
 
 // Los archivos de estas carpetas los crea y edita Decap CMS desde /admin.
 const events = defineCollection({
@@ -23,4 +24,25 @@ const videos = defineCollection({
   }),
 });
 
-export const collections = { events, videos };
+const makeup = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/makeup' }),
+  schema: z.object({
+    title: z.string(),
+    photos: z.array(z.string()).default([]),
+    order: z.number().default(0),
+  }),
+});
+
+const design = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/design' }),
+  schema: z.object({
+    title: z.string(),
+    type: z.enum(designTypes),
+    images: z.array(z.string()).default([]),
+    video: z.string().optional(),
+    youtube: z.string().optional(),
+    order: z.number().default(0),
+  }),
+});
+
+export const collections = { events, videos, makeup, design };

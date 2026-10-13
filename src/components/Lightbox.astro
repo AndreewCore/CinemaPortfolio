@@ -1,0 +1,21 @@
+<!-- Visor único: cualquier elemento con data-lightbox="<url>" lo abre. -->
+<dialog id="lightbox" class="m-auto max-h-[92vh] max-w-[92vw] bg-transparent p-0 backdrop:bg-negro/90">
+  <img id="lightbox-img" src="" alt="" class="max-h-[92vh] max-w-[92vw] object-contain" />
+</dialog>
+
+<script>
+  const lightbox = document.getElementById('lightbox') as HTMLDialogElement;
+  const img = document.getElementById('lightbox-img') as HTMLImageElement;
+
+  // Delegado en document para que también funcione con elementos que se
+  // muestran u ocultan después (pestañas, carruseles).
+  document.addEventListener('click', (e) => {
+    const trigger = (e.target as HTMLElement).closest<HTMLElement>('[data-lightbox]');
+    if (!trigger) return;
+    img.src = trigger.dataset.lightbox ?? '';
+    img.alt = trigger.getAttribute('aria-label') ?? '';
+    lightbox.showModal();
+  });
+  // Cualquier click cierra: no hay controles dentro que proteger.
+  lightbox.addEventListener('click', () => lightbox.close());
+</script>
