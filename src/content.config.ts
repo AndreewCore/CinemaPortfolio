@@ -23,4 +23,13 @@ const videos = defineCollection({
   }),
 });
 
-export const collections = { events, videos };
+const makeup = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/makeup' }),
+  schema: z.object({
+    title: z.string(),
+    photos: z.array(z.string()).default([]),
+    order: z.number().default(0),
+  }),
+});
+
+export const collections = { events, videos, makeup };
