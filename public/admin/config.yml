@@ -1,0 +1,60 @@
+backend:
+  name: github
+  repo: USUARIO/EJPortafolio # TODO: repo real en GitHub
+  branch: main
+  base_url: https://DOMINIO # TODO: dominio del sitio en Cloudflare Pages
+  auth_endpoint: api/auth
+
+# Con `pnpm cms` corriendo, /admin edita los archivos locales sin login.
+local_backend: true
+
+locale: es
+media_folder: public/uploads
+public_folder: /uploads
+
+collections:
+  - name: home
+    label: Inicio
+    files:
+      - name: collage
+        label: Collage
+        file: src/data/collage.json
+        format: json
+        fields:
+          - label: Imágenes de producciones
+            name: images
+            widget: list
+            field: { label: Imagen, name: image, widget: image }
+
+  - name: events
+    label: Eventos
+    label_singular: Evento
+    folder: src/content/events
+    create: true
+    slug: "{{slug}}"
+    sortable_fields: [date, title]
+    fields:
+      - { label: Título, name: title, widget: string }
+      - { label: Fecha, name: date, widget: datetime, time_format: false, date_format: "DD/MM/YYYY", format: "YYYY-MM-DD" }
+      - label: Fotos
+        name: photos
+        widget: list
+        field: { label: Foto, name: photo, widget: image }
+
+  - name: videos
+    label: Cinematografía
+    label_singular: Trabajo
+    folder: src/content/videos
+    create: true
+    slug: "{{slug}}"
+    sortable_fields: [position, order, title]
+    fields:
+      - { label: Título, name: title, widget: string }
+      - label: Posición
+        name: position
+        widget: select
+        # Mantener igual a `positions` en src/data/site.ts.
+        options: [Dirección, Producción, Fotografía, Maquillaje, Edición]
+      - { label: YouTube (enlace o ID), name: youtube, widget: string, required: false }
+      - { label: Imagen, name: image, widget: image, required: false }
+      - { label: Orden, name: order, widget: number, value_type: int, default: 0 }

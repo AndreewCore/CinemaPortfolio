@@ -1,0 +1,20 @@
+---
+import { brandColors } from '../data/site';
+import PaintBlob from './PaintBlob.astro';
+
+const rotations = [0, 120, 240];
+---
+
+<section id="marca" class="bg-negro text-crema">
+  <ul class="mx-auto grid max-w-6xl grid-cols-1 gap-5 px-4 py-6 sm:grid-cols-3 sm:px-6">
+    {brandColors.map((c, i) => (
+      <li class="flex items-center justify-center gap-4 sm:justify-start">
+        <PaintBlob color={c.hex} rotate={rotations[i]} class="h-14 w-14 shrink-0" />
+        <div class="leading-tight">
+          <p class="font-display text-3xl uppercase tracking-wide">{c.name}</p>
+          <p class="font-mono text-xs tracking-widest text-crema/60">{c.hex}</p>
+        </div>
+      </li>
+    ))}
+  </ul>
+</section>
