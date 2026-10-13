@@ -20,12 +20,12 @@ const [titleA, titleB] = t('about.title');
 
     <div>
       <h2 class="font-display text-[clamp(4.5rem,12vw,9rem)] uppercase leading-[0.8] tracking-wide">
-        {titleA}<span class="text-marron">{titleB}</span>
+        {titleA}<span class="text-marron dark:text-marron-claro">{titleB}</span>
       </h2>
       <div class="mt-4 flex h-[6px] w-40" aria-hidden="true">
         <span class="flex-1 bg-verde"></span><span class="flex-1 bg-marron"></span><span class="flex-1 bg-turquesa"></span>
       </div>
-      <p class="mt-8 max-w-xl text-lg leading-relaxed text-negro/80 md:text-xl">{localized(about, 'bio', lang)}</p>
+      <p class="mt-8 max-w-xl text-lg leading-relaxed text-texto/80 md:text-xl">{localized(about, 'bio', lang)}</p>
     </div>
   </div>
 </section>

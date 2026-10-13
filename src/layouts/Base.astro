@@ -17,6 +17,22 @@ const lang = getLang(Astro.currentLocale);
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/svg+xml" href={asset('/favicon.svg')} />
     <title>{title}</title>
+    <!-- Antes de pintar: evita el destello de tema equivocado al cargar. -->
+    <script is:inline>
+      (() => {
+        const saved = () => {
+          try { return localStorage.getItem('theme'); } catch { return null; }
+        };
+        const media = matchMedia('(prefers-color-scheme: dark)');
+        const apply = () => {
+          const s = saved();
+          document.documentElement.dataset.theme = s === 'dark' || s === 'light' ? s : media.matches ? 'dark' : 'light';
+        };
+        apply();
+        // Sin elección guardada, sigue al sistema también si cambia con la página abierta.
+        media.addEventListener('change', apply);
+      })();
+    </script>
     {Object.keys(languages).map((l) => <link rel="alternate" hreflang={l} href={getRelativeLocaleUrl(l)} />)}
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
