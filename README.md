@@ -1,4 +1,4 @@
-# CinemaPortfolio — E Jordan
+# CinemaPortfolio — Edith Jordan
 
 Astro + Tailwind + Decap CMS.
 
