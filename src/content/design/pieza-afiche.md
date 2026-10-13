@@ -1,5 +1,6 @@
 ---
 title: "Afiche"
+title_en: "Poster"
 type: Pieza
 order: 1
 images:

@@ -14,6 +14,9 @@ pnpm build
 - Filmmaking: `src/content/videos/*.md`
 - Colores, roles y áreas: `src/data/site.ts` y `src/styles/global.css`
 
+Español en `/` e inglés en `/en/`. Textos fijos en `src/i18n/ui.ts`; el contenido
+usa los campos opcionales "en inglés" del panel (`title_en`, `bio_en`) y, si están vacíos, el español.
+
 Se editan desde `/admin`. Las subidas van a `public/uploads/`.
 
 ## Publicar en Cloudflare Pages

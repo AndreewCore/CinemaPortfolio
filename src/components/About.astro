@@ -2,6 +2,11 @@
 import about from '../data/about.json';
 import { asset } from '../data/asset';
 import PaintBlob from './PaintBlob.astro';
+import { getLang, localized, useT } from '../i18n/ui';
+
+const lang = getLang(Astro.currentLocale);
+const t = useT(lang);
+const [titleA, titleB] = t('about.title');
 ---
 
 <section id="sobre-mi" class="relative overflow-hidden py-24 md:py-32">
@@ -15,12 +20,12 @@ import PaintBlob from './PaintBlob.astro';
 
     <div>
       <h2 class="font-display text-[clamp(4.5rem,12vw,9rem)] uppercase leading-[0.8] tracking-wide">
-        Sobre <span class="text-marron">mí</span>
+        {titleA}<span class="text-marron">{titleB}</span>
       </h2>
       <div class="mt-4 flex h-[6px] w-40" aria-hidden="true">
         <span class="flex-1 bg-verde"></span><span class="flex-1 bg-marron"></span><span class="flex-1 bg-turquesa"></span>
       </div>
-      <p class="mt-8 max-w-xl text-lg leading-relaxed text-negro/80 md:text-xl">{about.bio}</p>
+      <p class="mt-8 max-w-xl text-lg leading-relaxed text-negro/80 md:text-xl">{localized(about, 'bio', lang)}</p>
     </div>
   </div>
 </section>

@@ -1,5 +1,6 @@
 ---
 title: "Campaña de evento"
+title_en: "Event campaign"
 type: Carrusel
 order: 3
 images:

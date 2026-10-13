@@ -7,15 +7,16 @@ export const areas = [...filmmakingRoles, 'Fotografía', 'Maquillaje', 'Diseño 
 // Tipos de pieza de Diseño Gráfico; mantener igual a las opciones de public/admin/config.yml.
 export const designTypes = ['Carrusel', 'Reel', 'Pieza'] as const;
 
+// `key` apunta al texto traducido en src/i18n/ui.ts.
 export const navLinks = [
-  { label: 'Inicio', href: '#inicio' },
-  { label: 'Sobre mí', href: '#sobre-mi' },
-  { label: 'Filmmaking', href: '#filmmaking' },
-  { label: 'Maquillaje', href: '#maquillaje' },
-  { label: 'Fotografía', href: '#fotografia' },
-  { label: 'Diseño', href: '#diseno' },
-  { label: 'Contacto', href: '#contacto' },
-];
+  { key: 'nav.inicio', href: '#inicio' },
+  { key: 'nav.sobre-mi', href: '#sobre-mi' },
+  { key: 'nav.filmmaking', href: '#filmmaking' },
+  { key: 'nav.maquillaje', href: '#maquillaje' },
+  { key: 'nav.fotografia', href: '#fotografia' },
+  { key: 'nav.diseno', href: '#diseno' },
+  { key: 'nav.contacto', href: '#contacto' },
+] as const;
 
 // Placeholder: reemplazar por los datos reales.
 export const contact = {
