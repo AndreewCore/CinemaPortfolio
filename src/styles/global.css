@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+/* `dark:` aplica cuando <html data-theme="dark"> (lo fija el script de Base.astro). */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
 /* Colores de marca: cambiar aquí los cambia en todo el sitio. */
 @theme {
   --color-verde: #2f5d3a;
@@ -10,9 +13,27 @@
   --color-tinta: #1c1a17;
   /* Negro cálido: tira hacia el marrón para no chocar con el crema. */
   --color-negro: #16130f;
+  /* Versiones claras de verde y marrón para texto sobre fondo oscuro. */
+  --color-verde-claro: #7fb68c;
+  --color-marron-claro: #c99a72;
+
+  /* Colores de superficie que cambian con el tema (modo claro). Las secciones
+     negras, marrón y verde no los usan: se ven igual en ambos modos. */
+  --color-fondo: var(--color-crema);
+  --color-fondo-2: var(--color-crema-oscuro);
+  --color-texto: var(--color-negro);
+  --color-campo: #fbf7ee;
 
   --font-display: "Bebas Neue", Impact, sans-serif;
   --font-sans: "Manrope", system-ui, sans-serif;
+}
+
+:root[data-theme="dark"] {
+  --color-fondo: #201b16;
+  --color-fondo-2: #2a241d;
+  --color-texto: var(--color-crema);
+  --color-campo: #2f2820;
+  color-scheme: dark;
 }
 
 html {
@@ -22,8 +43,8 @@ html {
 }
 
 body {
-  background: var(--color-crema);
-  color: var(--color-tinta);
+  background: var(--color-fondo);
+  color: var(--color-texto);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
 }

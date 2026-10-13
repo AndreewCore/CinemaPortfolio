@@ -9,8 +9,8 @@ const t = useT(lang);
 const [titleA, titleB] = t('contact.title');
 
 const field =
-  'w-full border-2 border-negro/10 bg-white/60 px-4 py-3 text-negro outline-none transition-colors placeholder:text-negro/35 hover:border-negro/25 focus:border-turquesa focus:bg-white';
-const label = 'text-xs font-bold uppercase tracking-[0.2em] text-marron';
+  'w-full border-2 border-texto/10 bg-campo px-4 py-3 text-texto outline-none transition-colors placeholder:text-texto/35 hover:border-texto/25 focus:border-turquesa';
+const label = 'text-xs font-bold uppercase tracking-[0.2em] text-marron dark:text-marron-claro';
 
 const links = [
   { kind: t('contact.email'), value: contact.email, href: `mailto:${contact.email}`, icon: 'mail' },
@@ -69,7 +69,7 @@ const links = [
     <div class="relative">
       <PaintBlob color="#3FA7A3" rotate={200} class="pointer-events-none absolute -right-10 -top-12 z-10 h-28 w-28" />
       <!-- Maqueta: al conectar, poner aquí el endpoint de Formspree o Web3Forms. -->
-      <form id="contact-form" action="#" method="POST" class="relative grid gap-6 bg-crema p-6 text-negro shadow-[14px_14px_0_0_var(--color-negro)] sm:grid-cols-2 sm:p-10">
+      <form id="contact-form" action="#" method="POST" class="relative grid gap-6 bg-fondo p-6 text-texto shadow-[14px_14px_0_0_var(--color-negro)] sm:grid-cols-2 sm:p-10">
         <label class="grid gap-2">
           <span class={label}>{t('contact.name')}</span>
           <input class={field} type="text" name="name" required autocomplete="name" />
@@ -85,7 +85,7 @@ const links = [
             {areas.map((p) => (
               <label class="cursor-pointer">
                 <input type="checkbox" name="project" value={p} class="peer sr-only" />
-                <span class="block rounded-full border-2 border-negro/15 px-4 py-1.5 text-sm font-medium transition-colors hover:border-negro peer-checked:border-negro peer-checked:bg-negro peer-checked:text-crema peer-focus-visible:ring-2 peer-focus-visible:ring-turquesa">
+                <span class="block rounded-full border-2 border-texto/15 px-4 py-1.5 text-sm font-medium transition-colors hover:border-texto peer-checked:border-texto peer-checked:bg-texto peer-checked:text-fondo peer-focus-visible:ring-2 peer-focus-visible:ring-turquesa">
                   {term(p, lang)}
                 </span>
               </label>
@@ -100,7 +100,7 @@ const links = [
 
         <button
           type="submit"
-          class="group flex items-center justify-between gap-6 bg-negro px-6 py-4 font-display text-2xl uppercase tracking-wider text-crema transition-colors hover:bg-turquesa hover:text-negro sm:col-span-2"
+          class="group flex items-center justify-between gap-6 bg-texto px-6 py-4 font-display text-2xl uppercase tracking-wider text-fondo transition-colors hover:bg-turquesa hover:text-negro sm:col-span-2"
         >
           {t('contact.send')}
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="transition-transform group-hover:translate-x-1" aria-hidden="true">

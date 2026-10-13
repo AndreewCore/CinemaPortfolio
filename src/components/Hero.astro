@@ -17,8 +17,8 @@ const t = useT(lang);
       <img src={asset(src)} alt="" class="h-full w-full object-cover grayscale contrast-125" />
     ))}
   </div>
-  <!-- Velo crema más denso a la izquierda para que el nombre se lea sobre el collage. -->
-  <div class="absolute inset-0 -z-10 bg-gradient-to-r from-crema via-crema/90 to-crema/60" aria-hidden="true"></div>
+  <!-- Velo del color de fondo, más denso a la izquierda para que el nombre se lea sobre el collage. -->
+  <div class="absolute inset-0 -z-10 bg-gradient-to-r from-fondo via-fondo/90 to-fondo/60" aria-hidden="true"></div>
   <div class="absolute inset-0 -z-10 bg-marron/10 mix-blend-multiply" aria-hidden="true"></div>
 
   <img
@@ -28,14 +28,14 @@ const t = useT(lang);
   />
 
   <div class="relative mx-auto flex w-full max-w-7xl flex-1 flex-col justify-center px-4 pb-40 pt-28 sm:px-6 md:pb-24">
-    <h1 class="outline-crema font-display uppercase leading-[0.78] tracking-wide">
-      <span class="block text-[clamp(6rem,21vw,17rem)] text-verde">Edith</span>
-      <span class="block text-[clamp(6rem,21vw,17rem)] text-negro">Jordan</span>
+    <h1 class="outline-fondo font-display uppercase leading-[0.78] tracking-wide">
+      <span class="block text-[clamp(6rem,21vw,17rem)] text-verde dark:text-verde-claro">Edith</span>
+      <span class="block text-[clamp(6rem,21vw,17rem)] text-texto">Jordan</span>
     </h1>
 
     <ul class="mt-8 flex max-w-2xl flex-wrap gap-2">
       {areas.map((p, i) => (
-        <li class="flex items-center gap-2 rounded-full bg-negro px-3 py-1 text-[10px] font-bold uppercase tracking-[0.2em] text-crema sm:px-4 sm:py-1.5 sm:text-sm">
+        <li class="flex items-center gap-2 rounded-full bg-texto px-3 py-1 text-[10px] font-bold uppercase tracking-[0.2em] text-fondo sm:px-4 sm:py-1.5 sm:text-sm">
           <span class:list={['h-2 w-2 rounded-full', dots[i % dots.length]]}></span>{term(p, lang)}
         </li>
       ))}
@@ -57,11 +57,15 @@ const t = useT(lang);
     filter: drop-shadow(0 24px 24px rgb(22 19 15 / 0.35));
     animation: settle 1.4s cubic-bezier(0.2, 0.8, 0.2, 1) both;
   }
-  /* Contorno crema: el texto negro se separa de la cámara negra que tiene detrás. */
-  .outline-crema {
+  /* En modo oscuro la cámara negra se perdería en el fondo: un halo crema la recorta. */
+  :global([data-theme='dark']) .tripod {
+    filter: drop-shadow(0 0 26px rgb(243 233 210 / 0.22));
+  }
+  /* Contorno del color de fondo: el nombre se separa de la cámara que tiene detrás. */
+  .outline-fondo {
     text-shadow:
-      3px 0 var(--color-crema), -3px 0 var(--color-crema), 0 3px var(--color-crema), 0 -3px var(--color-crema),
-      2px 2px var(--color-crema), -2px -2px var(--color-crema), 2px -2px var(--color-crema), -2px 2px var(--color-crema);
+      3px 0 var(--color-fondo), -3px 0 var(--color-fondo), 0 3px var(--color-fondo), 0 -3px var(--color-fondo),
+      2px 2px var(--color-fondo), -2px -2px var(--color-fondo), 2px -2px var(--color-fondo), -2px 2px var(--color-fondo);
   }
   @keyframes settle {
     from { transform: rotate(0deg); opacity: 0; }
