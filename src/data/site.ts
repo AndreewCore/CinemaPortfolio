@@ -1,12 +1,14 @@
-// Si se agrega una posición aquí, agregarla también en public/admin/config.yml
-// para que aparezca como opción en el panel.
-export const positions = ['Dirección', 'Producción', 'Fotografía', 'Maquillaje', 'Edición'];
+// Si se cambian, actualizar también las opciones en public/admin/config.yml.
+export const filmmakingRoles = ['Dirección', 'Producción', 'Postproducción', 'Dirección de Fotografía'];
+
+// Áreas de trabajo: chips del hero y opciones del formulario de contacto.
+export const areas = [...filmmakingRoles, 'Fotografía', 'Maquillaje', 'Diseño Gráfico'];
 
 export const navLinks = [
   { label: 'Inicio', href: '#inicio' },
   { label: 'Sobre mí', href: '#sobre-mi' },
   { label: 'Fotografía', href: '#fotografia' },
-  { label: 'Cinematografía', href: '#cine' },
+  { label: 'Filmmaking', href: '#filmmaking' },
   { label: 'Contacto', href: '#contacto' },
 ];
 
