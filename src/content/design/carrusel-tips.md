@@ -1,5 +1,6 @@
 ---
 title: "Tips de rodaje"
+title_en: "Shooting tips"
 type: Carrusel
 order: 2
 images:

@@ -1,6 +1,11 @@
 ---
 import { getCollection } from 'astro:content';
 import { asset } from '../data/asset';
+import { getLang, localized, useT } from '../i18n/ui';
+
+const lang = getLang(Astro.currentLocale);
+const t = useT(lang);
+const [titleA, titleB] = t('photo.title');
 
 const events = (await getCollection('events'))
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
@@ -8,17 +13,17 @@ const events = (await getCollection('events'))
 
 // El primer elemento es el grande del bento; el resto ocupa una celda.
 const spans = ['col-span-2 row-span-2', '', '', '', ''];
-const fmt = new Intl.DateTimeFormat('es', { month: 'short', year: 'numeric' });
+const fmt = new Intl.DateTimeFormat(lang, { month: 'short', year: 'numeric' });
 const pad = (n: number) => String(n).padStart(2, '0');
 ---
 
 <section id="fotografia" class="relative overflow-hidden py-24">
-  <span class="pointer-events-none absolute -right-6 top-6 select-none font-display text-[22vw] leading-none text-verde/[0.06]" aria-hidden="true">Foto</span>
+  <span class="pointer-events-none absolute -right-6 top-6 select-none font-display text-[22vw] leading-none text-verde/[0.06]" aria-hidden="true">{titleA}</span>
 
   <div class="relative mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-[320px_1fr]">
     <div class="min-w-0">
       <h2 class="font-display text-7xl uppercase leading-none tracking-wide">
-        Foto<span class="text-verde">grafía</span>
+        {titleA}<span class="text-verde">{titleB}</span>
       </h2>
       <div class="mt-2 h-[6px] w-20 bg-marron"></div>
 
@@ -29,7 +34,7 @@ const pad = (n: number) => String(n).padStart(2, '0');
               <span class="flex items-baseline gap-3">
                 <span class="font-display text-2xl text-marron">{pad(i + 1)}</span>
                 <span class="font-display text-2xl uppercase tracking-wide text-negro/40 transition-colors group-hover:text-negro group-aria-[current]:text-negro">
-                  {e.data.title}
+                  {localized(e.data, 'title', lang)}
                 </span>
               </span>
               <span class="mt-2 block h-[3px] overflow-hidden bg-negro/10">
@@ -48,10 +53,10 @@ const pad = (n: number) => String(n).padStart(2, '0');
         </p>
         {events.length > 1 && (
           <div class="flex gap-2">
-            <button id="ev-prev" class="grid h-11 w-11 place-items-center rounded-full border-2 border-negro transition hover:bg-negro hover:text-crema" aria-label="Anterior">
+            <button id="ev-prev" class="grid h-11 w-11 place-items-center rounded-full border-2 border-negro transition hover:bg-negro hover:text-crema" aria-label={t('prev')}>
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 6l-6 6 6 6" /></svg>
             </button>
-            <button id="ev-next" class="grid h-11 w-11 place-items-center rounded-full bg-negro text-crema transition hover:bg-verde" aria-label="Siguiente">
+            <button id="ev-next" class="grid h-11 w-11 place-items-center rounded-full bg-negro text-crema transition hover:bg-verde" aria-label={t('next')}>
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 6l6 6-6 6" /></svg>
             </button>
           </div>
@@ -69,10 +74,10 @@ const pad = (n: number) => String(n).padStart(2, '0');
             aria-hidden={i !== 0 ? 'true' : undefined}
           >
             {e.data.photos.slice(0, 5).map((src, j) => (
-              <button class:list={['photo group relative overflow-hidden bg-crema-oscuro', spans[j]]} data-lightbox={asset(src)} aria-label={`Ampliar ${e.data.title} ${j + 1}`}>
+              <button class:list={['photo group relative overflow-hidden bg-crema-oscuro', spans[j]]} data-lightbox={asset(src)} aria-label={`${t('enlarge')} ${localized(e.data, 'title', lang)} ${j + 1}`}>
                 <img
                   src={asset(src)}
-                  alt={`${e.data.title} ${j + 1}`}
+                  alt={`${localized(e.data, 'title', lang)} ${j + 1}`}
                   loading={i === 0 ? 'eager' : 'lazy'}
                   class="h-full w-full object-cover transition duration-700 group-hover:scale-105"
                 />

@@ -1,5 +1,6 @@
 ---
 title: "Caracterización"
+title_en: "Character makeup"
 order: 1
 photos:
   - https://picsum.photos/seed/maq-a1/800/1100
