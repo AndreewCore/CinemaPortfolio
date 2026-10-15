@@ -30,6 +30,12 @@ Se edita todo desde `/admin`. Las subidas van a `public/uploads/` y las fotos se
 - El panel hace commit directo a `backend.branch` de `public/admin/config.yml`; esa rama debe aceptar pushes
   de la cuenta que edita.
 
+## SEO
+- Título y descripción por idioma: `seo.title` / `seo.description` en `src/i18n/ui.ts`.
+- `Base.astro` agrega canonical, hreflang, Open Graph (`public/og.png`, 1200×630) y datos estructurados `Person`.
+- `@astrojs/sitemap` genera `sitemap-index.xml`; `src/pages/robots.txt.ts` lo enlaza. `site` sale de `SITE_URL`.
+- Con dominio propio: verificarlo en Google Search Console y enviar el sitemap.
+
 ## Publicar en Cloudflare Pages
 1. Subir el repo a GitHub y conectarlo en Cloudflare Pages (build `pnpm build`, salida `dist`).
 2. Desplegar el worker [sveltia-cms-auth](https://github.com/sveltia/sveltia-cms-auth) y su OAuth App de GitHub
