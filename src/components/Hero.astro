@@ -5,16 +5,26 @@ import collage from '../data/collage.json';
 import { asset } from '../data/asset';
 
 const dots = ['bg-verde', 'bg-marron', 'bg-turquesa'];
+const clips: { video: string; poster?: string }[] = collage.clips;
 
 const lang = getLang(Astro.currentLocale);
 const t = useT(lang);
 ---
 
 <section id="inicio" class="relative isolate flex h-[100svh] max-h-[1000px] min-h-[660px] flex-col overflow-hidden border-b-[6px] border-negro">
-  <!-- Collage de producciones: se edita desde el panel (Inicio → Collage). -->
-  <div class="absolute inset-0 -z-20 grid grid-cols-2 grid-rows-4 md:grid-cols-4 md:grid-rows-2" aria-hidden="true">
-    {collage.images.slice(0, 8).map((src) => (
-      <img src={asset(src)} alt="" class="h-full w-full object-cover grayscale contrast-125" />
+  <!-- Collage de clips en bucle: se edita desde el panel (Inicio → Collage). -->
+  <div class="collage absolute inset-0 -z-20 grid grid-cols-2 grid-rows-3 md:grid-cols-3 md:grid-rows-2" aria-hidden="true">
+    {clips.slice(0, 6).map((c) => (
+      <video
+        src={asset(c.video)}
+        poster={c.poster ? asset(c.poster) : undefined}
+        class="h-full w-full object-cover grayscale contrast-125"
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="metadata"
+      ></video>
     ))}
   </div>
   <!-- Velo del color de fondo, más denso a la izquierda para que el nombre se lea sobre el collage. -->
@@ -48,6 +58,21 @@ const t = useT(lang);
     <p class="mt-3 inline-block bg-turquesa px-3 py-1 font-display text-xl uppercase leading-none tracking-[0.2em] text-negro sm:text-2xl">UCSG</p>
   </div>
 </section>
+
+<script>
+  const hero = document.getElementById('inicio')!;
+  const clips = [...hero.querySelectorAll<HTMLVideoElement>('.collage video')];
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)');
+
+  /** Reproduce los clips solo si el hero está en pantalla y no se pidió reducir movimiento. */
+  function update(visible: boolean) {
+    clips.forEach((v) => (visible && !reduce.matches ? v.play().catch(() => {}) : v.pause()));
+  }
+
+  // Seis videos en bucle fuera de pantalla gastarían batería y datos sin que nadie los vea.
+  new IntersectionObserver(([e]) => update(e.isIntersecting)).observe(hero);
+  reduce.addEventListener('change', () => update(hero.getBoundingClientRect().bottom > 0));
+</script>
 
 <style>
   .tripod {

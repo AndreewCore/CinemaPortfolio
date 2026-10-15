@@ -21,10 +21,12 @@ collections:
         file: src/data/collage.json
         format: json
         fields:
-          - label: Imágenes de producciones
-            name: images
+          - label: Clips de producciones (videos cortos en bucle, ideal < 5 MB)
+            name: clips
             widget: list
-            field: { label: Imagen, name: image, widget: image }
+            fields:
+              - { label: Video, name: video, widget: file }
+              - { label: Portada (opcional), name: poster, widget: image, required: false }
       - name: about
         label: Sobre mí
         file: src/data/about.json
