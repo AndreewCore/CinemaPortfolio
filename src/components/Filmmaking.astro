@@ -15,6 +15,7 @@ const tabs = filmmakingRoles.filter((p) => videos.some((v) => v.data.position ==
 const firstOfTab = new Set(tabs.map((t) => videos.find((v) => v.data.position === t)?.id));
 ---
 
+{videos.length > 0 && (
 <section id="filmmaking" class="relative overflow-hidden bg-negro py-28 text-crema md:py-36">
   <div class="mx-auto max-w-7xl px-4 sm:px-6">
     <div class="flex flex-wrap items-end justify-between gap-6">
@@ -73,6 +74,7 @@ const firstOfTab = new Set(tabs.map((t) => videos.find((v) => v.data.position ==
     </div>
   </div>
 </section>
+)}
 
 <script>
   const tabs = document.querySelectorAll<HTMLButtonElement>('#filmmaking .tab');
