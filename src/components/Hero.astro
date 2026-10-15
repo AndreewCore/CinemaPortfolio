@@ -2,7 +2,7 @@
 import { areas } from '../data/site';
 import { getLang, term, useT } from '../i18n/ui';
 import collage from '../data/collage.json';
-import { asset } from '../data/asset';
+import { asset, posterFor } from '../data/asset';
 
 const dots = ['bg-verde', 'bg-marron', 'bg-turquesa'];
 const clips: { video: string; poster?: string }[] = collage.clips;
@@ -18,7 +18,7 @@ const t = useT(lang);
     {clips.slice(0, 6).map((c) => (
       <video
         src={asset(c.video)}
-        poster={c.poster ? asset(c.poster) : undefined}
+        poster={c.poster ? asset(c.poster) : posterFor(c.video)}
         class="h-full w-full object-cover grayscale contrast-125"
         autoplay
         muted

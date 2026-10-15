@@ -20,6 +20,9 @@ usa los campos opcionales "en inglés" del panel (`title_en`, `bio_en`) y, si es
 ## Panel `/admin` (Sveltia CMS)
 Se edita todo desde `/admin`. Las subidas van a `public/uploads/` y las fotos se convierten a WebP al subirlas.
 
+- Fotos y videos subidos se comprimen solos al publicar (`src/integrations/optimize-media.ts`): fotos a máx. 2400 px,
+  videos H.264 máx. 1080p con póster automático. Los originales del repo no cambian; caché en `.cache/`.
+- Cada foto tiene "Descripción" (texto alt) opcional en el panel; si falta se usa "<título> — foto N".
 - **En la web publicada**: “Sign In Using Access Token” con un token de GitHub *fine-grained* limitado al repo,
   permiso **Contents: Read and write**. Funciona en cualquier navegador, también en el celular.
 - **En local**: con `pnpm dev` corriendo, abrir `http://localhost:4321/admin/index.html` en Chrome/Edge/Brave y elegir

@@ -1,7 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import { asset } from '../data/asset';
-import { getLang, localized, useT } from '../i18n/ui';
+import { altFor, getLang, localized, useT } from '../i18n/ui';
 
 const lang = getLang(Astro.currentLocale);
 const t = useT(lang);
@@ -74,17 +74,21 @@ const pad = (n: number) => String(n).padStart(2, '0');
             data-date={fmt.format(e.data.date)}
             aria-hidden={i !== 0 ? 'true' : undefined}
           >
-            {e.data.photos.slice(0, 5).map((src, j) => (
-              <button class:list={['photo group relative overflow-hidden bg-fondo-2', spans[j]]} data-lightbox={asset(src)} aria-label={`${t('enlarge')} ${localized(e.data, 'title', lang)} ${j + 1}`}>
+            {e.data.photos.slice(0, 5).map((photo, j) => {
+              const alt = altFor(photo, localized(e.data, 'title', lang), j + 1, lang);
+              return (
+              <button class:list={['photo group relative overflow-hidden bg-fondo-2', spans[j]]} data-lightbox={asset(photo.src)} data-alt={alt} aria-label={`${t('enlarge')}: ${alt}`}>
                 <img
-                  src={asset(src)}
-                  alt={`${localized(e.data, 'title', lang)} ${j + 1}`}
+                  src={asset(photo.src)}
+                  alt={alt}
+                  decoding="async"
                   loading={i === 0 ? 'eager' : 'lazy'}
                   class="h-full w-full object-cover transition duration-700 group-hover:scale-105"
                 />
                 <span class="absolute inset-0 bg-verde/0 transition-colors group-hover:bg-verde/15"></span>
               </button>
-            ))}
+              );
+            })}
           </div>
         ))}
       </div>
