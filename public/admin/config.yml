@@ -32,7 +32,7 @@ collections:
         file: src/data/about.json
         format: json
         fields:
-          - { label: Foto, name: photo, widget: image }
+          - { label: Foto, name: photo, widget: image, required: false }
           - { label: Bio, name: bio, widget: text }
           - { label: Bio en inglés, name: bio_en, widget: text, required: false }
 
