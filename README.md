@@ -12,6 +12,7 @@ pnpm build
 ## Contenido
 - Eventos de fotografía: `src/content/events/*.md`
 - Filmmaking: `src/content/videos/*.md`
+- Correo e Instagram: `src/data/contact.json` (panel → Inicio → Contacto)
 - Colores, roles y áreas: `src/data/site.ts` y `src/styles/global.css`
 
 Español en `/` e inglés en `/en/`. Textos fijos en `src/i18n/ui.ts`; el contenido
