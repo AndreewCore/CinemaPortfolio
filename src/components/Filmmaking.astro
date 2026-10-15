@@ -62,7 +62,7 @@ const firstOfTab = new Set(tabs.map((t) => videos.find((v) => v.data.position ==
                 </span>
               </button>
             ) : v.data.image ? (
-              <img src={asset(v.data.image)} alt={localized(v.data, 'title', lang)} loading="lazy" class="h-full w-full object-cover transition duration-700 group-hover:scale-[1.03]" />
+              <img src={asset(v.data.image)} alt={localized(v.data, 'image_alt', lang) || localized(v.data, 'title', lang)} loading="lazy" decoding="async" class="h-full w-full object-cover transition duration-700 group-hover:scale-[1.03]" />
             ) : null}
           </div>
           <div class="mt-4 flex items-baseline justify-between gap-4 border-b border-crema/15 pb-4">

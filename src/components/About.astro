@@ -16,7 +16,7 @@ const [titleA, titleB] = t('about.title');
       <PaintBlob color="#3FA7A3" rotate={60} class="pointer-events-none absolute -right-10 -top-10 z-10 h-36 w-36 opacity-90" />
       <!-- Bloque desplazado en verde: da profundidad al retrato sin marco literal. -->
       <div class="absolute inset-0 translate-x-4 translate-y-4 bg-verde" aria-hidden="true"></div>
-      <img src={asset(about.photo)} alt="Edith Jordan" class="relative aspect-[4/5] w-full object-cover grayscale-[30%]" />
+      <img src={asset(about.photo)} alt={localized(about, 'photo_alt', lang) || 'Edith Jordan'} decoding="async" class="relative aspect-[4/5] w-full object-cover grayscale-[30%]" />
     </div>
     )}
 

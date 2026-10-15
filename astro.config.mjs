@@ -2,6 +2,7 @@
 import { defineConfig } from 'astro/config';
 
 import tailwindcss from '@tailwindcss/vite';
+import optimizeMedia from './src/integrations/optimize-media';
 
 // https://astro.build/config
 export default defineConfig({
@@ -14,6 +15,8 @@ export default defineConfig({
     defaultLocale: 'es',
     routing: { prefixDefaultLocale: false },
   },
+  // Comprime fotos y videos subidos desde el panel al publicar.
+  integrations: [optimizeMedia()],
   vite: {
     plugins: [tailwindcss()]
   }

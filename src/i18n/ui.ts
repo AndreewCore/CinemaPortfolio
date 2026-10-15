@@ -27,6 +27,7 @@ export const ui = {
     'next': 'Siguiente',
     'play': 'Reproducir',
     'enlarge': 'Ampliar',
+    'media.photo': 'foto',
     'sound.on': 'Activar sonido',
     'sound.off': 'Silenciar',
     'design.Carrusel': 'Carruseles',
@@ -56,6 +57,7 @@ export const ui = {
     'next': 'Next',
     'play': 'Play',
     'enlarge': 'Enlarge',
+    'media.photo': 'photo',
     'sound.on': 'Unmute',
     'sound.off': 'Mute',
     'design.Carrusel': 'Carousels',
@@ -97,4 +99,13 @@ export function term(value: string, lang: Lang): string {
 export function localized<T extends Record<string, unknown>>(data: T, field: keyof T & string, lang: Lang): string {
   const en = data[`${field}_en`];
   return lang === 'en' && typeof en === 'string' && en.trim() ? en : String(data[field] ?? '');
+}
+
+/**
+ * Texto alternativo de una foto: el que escribió la dueña en el panel
+ * (en inglés si existe) o, si no, "<título> — foto N" para no dejarla muda.
+ */
+export function altFor(item: { alt?: string; alt_en?: string }, title: string, n: number, lang: Lang): string {
+  const custom = localized(item, 'alt', lang).trim();
+  return custom || `${title} — ${ui[lang]['media.photo']} ${n}`;
 }
