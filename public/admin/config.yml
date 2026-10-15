@@ -35,6 +35,14 @@ collections:
           - { label: Foto, name: photo, widget: image, required: false }
           - { label: Bio, name: bio, widget: text }
           - { label: Bio en inglés, name: bio_en, widget: text, required: false }
+      - name: contact
+        label: Contacto
+        file: src/data/contact.json
+        format: json
+        fields:
+          - { label: Correo, name: email, widget: string }
+          - { label: Usuario de Instagram (con @), name: instagram, widget: string }
+          - { label: Enlace del perfil de Instagram, name: instagramUrl, widget: string }
 
   - name: events
     label: Eventos
