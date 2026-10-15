@@ -1,9 +1,9 @@
 ---
 import { getCollection } from 'astro:content';
 import { designTypes } from '../data/site';
-import { asset } from '../data/asset';
+import { asset, posterFor } from '../data/asset';
 import { youtubeId } from '../data/youtube';
-import { getLang, localized, useT } from '../i18n/ui';
+import { altFor, getLang, localized, useT } from '../i18n/ui';
 
 const pieces = (await getCollection('design')).sort((a, b) => a.data.order - b.data.order);
 const byType = (t: string) => pieces.filter((p) => p.data.type === t);
@@ -50,11 +50,14 @@ const arrow =
         <article class="carousel">
           <div class="relative aspect-[4/5] overflow-hidden bg-fondo">
             <div class="track flex h-full snap-x snap-mandatory overflow-x-auto [scrollbar-width:none]">
-              {c.data.images.map((src, i) => (
-                <button class="h-full w-full shrink-0 snap-start" data-lightbox={asset(src)} aria-label={`${title(c)} ${i + 1}`}>
-                  <img src={asset(src)} alt={`${title(c)} ${i + 1}`} loading={i === 0 ? "eager" : "lazy"} class="h-full w-full object-cover" />
+              {c.data.images.map((img, i) => {
+                const alt = altFor(img, title(c), i + 1, lang);
+                return (
+                <button class="h-full w-full shrink-0 snap-start" data-lightbox={asset(img.src)} data-alt={alt} aria-label={`${tr('enlarge')}: ${alt}`}>
+                  <img src={asset(img.src)} alt={alt} loading="lazy" decoding="async" class="h-full w-full object-cover" />
                 </button>
-              ))}
+                );
+              })}
             </div>
             <span class="count absolute right-3 top-3 rounded-full bg-negro/75 px-2.5 py-1 text-xs font-bold text-crema">
               1/{c.data.images.length}
@@ -88,7 +91,7 @@ const arrow =
                 <video
                   class="reel h-full w-full object-cover"
                   src={asset(r.data.video)}
-                  poster={r.data.images[0] && asset(r.data.images[0])}
+                  poster={r.data.images[0] ? asset(r.data.images[0].src) : posterFor(r.data.video)}
                   muted
                   loop
                   playsinline
@@ -102,7 +105,7 @@ const arrow =
             ) : r.data.youtube ? (
               <button class="yt group absolute inset-0" data-id={youtubeId(r.data.youtube)} aria-label={`${tr('play')} ${title(r)}`}>
                 <img
-                  src={r.data.images[0] ? asset(r.data.images[0]) : `https://i.ytimg.com/vi/${youtubeId(r.data.youtube)}/hqdefault.jpg`}
+                  src={r.data.images[0] ? asset(r.data.images[0].src) : `https://i.ytimg.com/vi/${youtubeId(r.data.youtube)}/hqdefault.jpg`}
                   alt=""
                   loading="lazy"
                   class="h-full w-full object-cover"
@@ -112,7 +115,7 @@ const arrow =
                 </span>
               </button>
             ) : r.data.images[0] ? (
-              <img src={asset(r.data.images[0])} alt={title(r)} loading="lazy" class="h-full w-full object-cover" />
+              <img src={asset(r.data.images[0].src)} alt={altFor(r.data.images[0], title(r), 1, lang)} loading="lazy" decoding="async" class="h-full w-full object-cover" />
             ) : null}
           </div>
           <h3 class="mt-3 font-display text-2xl uppercase tracking-wide">{title(r)}</h3>
@@ -124,8 +127,8 @@ const arrow =
     <div data-panel="Pieza" class:list={['panel mt-12 grid grid-cols-2 gap-4 md:grid-cols-3 md:gap-6', tabs[0] !== 'Pieza' && 'hidden']}>
       {byType('Pieza').map((p) => p.data.images[0] && (
         <article>
-          <button class="group block aspect-[4/5] w-full overflow-hidden bg-fondo" data-lightbox={asset(p.data.images[0])} aria-label={title(p)}>
-            <img src={asset(p.data.images[0])} alt={title(p)} loading="lazy" class="h-full w-full object-cover transition duration-700 group-hover:scale-105" />
+          <button class="group block aspect-[4/5] w-full overflow-hidden bg-fondo" data-lightbox={asset(p.data.images[0].src)} data-alt={altFor(p.data.images[0], title(p), 1, lang)} aria-label={`${tr('enlarge')}: ${altFor(p.data.images[0], title(p), 1, lang)}`}>
+            <img src={asset(p.data.images[0].src)} alt={altFor(p.data.images[0], title(p), 1, lang)} loading="lazy" decoding="async" class="h-full w-full object-cover transition duration-700 group-hover:scale-105" />
           </button>
           <h3 class="mt-3 font-display text-2xl uppercase tracking-wide">{title(p)}</h3>
         </article>
