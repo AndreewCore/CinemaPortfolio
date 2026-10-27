@@ -1,0 +1,11 @@
+---
+title: "Boda en el Valle"
+title_en: "Wedding in the Valley"
+date: 2026-05-10
+photos:
+  - src: https://picsum.photos/seed/boda1/1200/900
+  - src: https://picsum.photos/seed/boda2/1200/900
+  - src: https://picsum.photos/seed/boda3/1200/900
+  - src: https://picsum.photos/seed/boda4/1200/900
+  - src: https://picsum.photos/seed/boda5/1200/900
+---
