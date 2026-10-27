@@ -15,7 +15,7 @@ const media = z.object({
 // Cada entrada es un grupo (evento, look, proyecto); el panel elige si se muestran
 // por grupos o todo junto (src/data/grouping.json).
 
-/** Carpeta de una colección: en `astro dev` los ejemplos de src/placeholder, para ver el diseño sin contenido real. */
+/** Carpeta de una colección: en `astro dev` los ejemplos locales de src/placeholder (fuera del repo), para ver el diseño sin contenido real. */
 const folder = (name: string) => `./src/${import.meta.env.DEV ? 'placeholder' : 'content'}/${name}`;
 
 const events = defineCollection({
